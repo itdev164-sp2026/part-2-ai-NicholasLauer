@@ -47,8 +47,10 @@ export default function HomePage() {
           Course Dashboard
         </h1>
         <p className="text-muted-foreground">
-          ITDEV-164 — Web Programming 2: AI-native full-stack development with
-          Next.js, Tailwind&nbsp;CSS, and Supabase.
+          I am a web development student remixing code with the things I love
+          most: music, art, and the future of technology. Every project helps
+          me build the skills to turn those passions into a career where
+          creativity and innovation are part of my everyday work.
         </p>
       </section>
 
