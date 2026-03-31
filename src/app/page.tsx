@@ -1,75 +1,78 @@
-import { Code, Cpu, Layout, Rocket, Server, ShieldCheck } from "lucide-react";
+import {
+  Code2,
+  Database,
+  Figma,
+  GitBranch,
+  LayoutGrid,
+  Server,
+} from "lucide-react";
 
-const assignments = [
+const skills = [
   {
-    week: 1,
-    title: "Setup & Next.js Scaffolding",
-    description: "Initialize your project, configure tooling, and verify your AI-assisted workflow.",
-    icon: Rocket,
+    name: "TypeScript",
+    description: "Build type-safe, maintainable full-stack apps.",
+    icon: Code2,
   },
   {
-    week: 2,
-    title: "Agentic UI with Shadcn",
-    description: "Build dashboard layouts and reusable components with Shadcn/ui and Tailwind.",
-    icon: Layout,
+    name: "Next.js",
+    description: "Create modern App Router experiences with server components.",
+    icon: LayoutGrid,
   },
   {
-    week: 3,
-    title: "Server Components & Data Fetching",
-    description: "Leverage React Server Components and async data patterns in the App Router.",
+    name: "Tailwind CSS",
+    description: "Design responsive interfaces with utility-first styling.",
+    icon: Figma,
+  },
+  {
+    name: "Node.js",
+    description: "Develop backend logic and API integrations.",
     icon: Server,
   },
   {
-    week: 4,
-    title: "AI-Driven Forms & Validation",
-    description: "Create forms with Zod schemas and Server Actions for type-safe data handling.",
-    icon: Code,
+    name: "Database Design",
+    description: "Model, query, and organize data for real applications.",
+    icon: Database,
   },
   {
-    week: 5,
-    title: "Full-Stack Integration",
-    description: "Connect Supabase for authentication, database operations, and real-time data.",
-    icon: Cpu,
-  },
-  {
-    week: 6,
-    title: "Deployment & AI Testing",
-    description: "Deploy to Vercel, set up webhooks, and write AI-assisted tests.",
-    icon: ShieldCheck,
+    name: "Git & GitHub",
+    description: "Collaborate confidently with branch-based workflows.",
+    icon: GitBranch,
   },
 ];
 
 export default function HomePage() {
   return (
-    <div className="space-y-8">
-      <section className="space-y-2">
+    <div className="space-y-10">
+      <section className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight">
-          Course Dashboard
+          Nicholas Lauer
         </h1>
-        <p className="text-muted-foreground">
-          ITDEV-164 — Web Programming 2: AI-native full-stack development with
-          Next.js, Tailwind&nbsp;CSS, and Supabase.
+        <p className="max-w-2xl text-muted-foreground">
+          I am a web development student remixing code with the things I love
+          most: music, art, and the future of technology. Every project helps
+          me build the skills to turn those passions into a career where
+          creativity and innovation are part of my everyday work.
         </p>
       </section>
 
-      <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {assignments.map(({ week, title, description, icon: Icon }) => (
-          <div
-            key={week}
-            className="group rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/40"
-          >
-            <div className="mb-3 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-muted">
-                <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold tracking-tight">Skills</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {skills.map(({ name, description, icon: Icon }) => (
+            <div
+              key={name}
+              className="group rounded-lg border border-border bg-card p-5 transition-colors hover:border-primary/40"
+            >
+              <div className="mb-3 flex items-center gap-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-md bg-muted">
+                  <Icon className="h-5 w-5 text-muted-foreground transition-colors group-hover:text-primary" />
+                </div>
+                <h3 className="font-semibold leading-none">{name}</h3>
               </div>
-              <span className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
-                Week {week}
-              </span>
+              <p className="text-sm text-muted-foreground">{description}</p>
             </div>
-            <h2 className="mb-1 font-semibold leading-snug">{title}</h2>
-            <p className="text-sm text-muted-foreground">{description}</p>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
     </div>
   );
