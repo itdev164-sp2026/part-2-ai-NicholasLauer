@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Geist } from "next/font/google";
-import Link from "next/link";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AppSidebar } from "@/components/app-sidebar";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import {
   SidebarInset,
@@ -10,14 +10,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@/components/ui/separator";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -54,19 +46,7 @@ export default function RootLayout({
                 <div className="flex items-center gap-2">
                   <SidebarTrigger className="-ml-1" />
                   <Separator orientation="vertical" className="mx-2 h-4" />
-                  <Breadcrumb>
-                    <BreadcrumbList>
-                      <BreadcrumbItem>
-                        <BreadcrumbLink render={<Link href="/" />}>
-                          Dashboard
-                        </BreadcrumbLink>
-                      </BreadcrumbItem>
-                      <BreadcrumbSeparator />
-                      <BreadcrumbItem>
-                        <BreadcrumbPage>Overview</BreadcrumbPage>
-                      </BreadcrumbItem>
-                    </BreadcrumbList>
-                  </Breadcrumb>
+                  <BreadcrumbNav />
                 </div>
                 <ModeToggle />
               </header>

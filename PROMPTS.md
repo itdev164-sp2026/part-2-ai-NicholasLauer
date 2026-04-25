@@ -72,3 +72,64 @@ Keep the dark mode toggle working.
     It seems like the Agent did a good job at only making minimal changes and additions to the code from Activity 1, however it did seem the new code affected some code that it didn't take into account when building a solution the first time and took several tries to work correctly.
 
     So far I have not had to use the Revert button, however I did have to go back and look at what the AI did in each step of its build to see if any changes were made that should not have occurred.
+
+
+    ## Activity 3: Server-Side Data with Supabase
+
+### Prompt 1
+
+**What I asked:**
+> 
+'Using the Supabase client at src/lib/supabase.ts, create a new Server Component at src/app/projects/page.tsx that:
+
+1. Fetches all records from the "projects" table in Supabase
+2. Displays them in a professional layout using shadcn/ui Card components
+   (run `npx shadcn@latest add card` if needed)
+3. Each card should show the project title, description, and a status badge
+4. The status badge should be color-coded:
+   - "active" = green
+   - "completed" = blue
+   - "archived" = gray
+
+Use @workspace context to match the styling of our existing Dashboard.
+This must be a React Server Component (async function, no "use client").
+Do NOT use useEffect or useState for data fetching. 
+>
+
+**What happened:**
+
+> This prompt led the Agent to use the Supabase client component to create a React server component that uses the async function. The React Server component then takes the data provided from the client and displays it according to the layout set up within the server component.
+
+> The Agent created the async function right away. I believe this was due to the prompt including the words "This Must ... async funtion, no use client" guiding the Agent to follow the strict guidance.
+
+> Had that phrase not been included, the Agent may have decided on another route other than the async function 
+
+### Prompt 2
+
+**What I asked:**
+
+> (Paste any follow-up prompt — fixing a connection error, refactoring
+> from useEffect to a Server Component, or adjusting the card layout)
+
+The breadcrumb in src/app/layout.tsx always shows "Overview" because the page
+name is hardcoded. Extract the breadcrumb into its own client component at
+src/components/breadcrumb-nav.tsx that uses usePathname() from next/navigation
+to display the correct page name. Map "/" to "Overview", "/projects" to
+"Projects", and "/settings" to "Settings". Keep "ITDEV-164" as the first
+breadcrumb segment. Then update layout.tsx to use the new component.
+
+**What happened:**
+
+> 
+The Agent replaced the hardcoded breadcrumb label in layout.tsx with a client component that uses usePathname() to detect the current route.
+
+This made the breadcrumb update dynamically so it now shows Overview, Projects, or Settings depending on which page the user is actually visiting. The routing behavior of the app did not change; the breadcrumb only displays the correct current page name.
+>
+
+### Reflection
+
+> How does fetching data on the server feel different from the useEffect
+> pattern you used in Web Programming 1?
+Fetching the data on the server feels different from the useEffect pattern because the data is loaded first, and then the page and layout is rendered.
+
+I also feel that because this simplifies the code, reduces how much is needed, that using a Server Component makes the code cleaner and easier to understand.
