@@ -98,11 +98,12 @@ Do NOT use useEffect or useState for data fetching.
 
 **What happened:**
 
-> This prompt led the Agent to use the Supabase client component to create a React server component that uses the async function. The React Server component then takes the data provided from the client and displays it according to the layout set up within the server component.
+>
+ This prompt led the Agent to use the Supabase client component to create a React server component that uses the async function. The React Server component then takes the data provided from the client and displays it according to the layout set up within the server component.
 
-> The Agent created the async function right away. I believe this was due to the prompt including the words "This Must ... async funtion, no use client" guiding the Agent to follow the strict guidance.
+ The Agent created the async function right away. I believe this was due to the prompt including the words "This Must ... async funtion, no use client" guiding the Agent to follow the strict guidance.
 
-> Had that phrase not been included, the Agent may have decided on another route other than the async function 
+ Had that phrase not been included, the Agent may have decided on another route other than the async function 
 
 ### Prompt 2
 
