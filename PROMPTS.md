@@ -134,3 +134,117 @@ This made the breadcrumb update dynamically so it now shows Overview, Projects, 
 Fetching the data on the server feels different from the useEffect pattern because the data is loaded first, and then the page and layout is rendered.
 
 I also feel that because this simplifies the code, reduces how much is needed, that using a Server Component makes the code cleaner and easier to understand.
+
+
+
+
+
+
+
+## Activity 4: AI-Driven Forms & Validation
+
+### Prompt 1
+
+**What I asked:**
+
+Create a Zod validation schema in a new file src/lib/schemas.ts for a "Project"
+with the following fields:
+
+- title: string, minimum 3 characters, with a custom error message
+  "Title must be at least 3 characters"
+- description: string, minimum 10 characters, with a custom error message
+  "Description must be at least 10 characters"
+- status: enum with values "active", "completed", "archived"
+
+Export the schema and also export the inferred TypeScript type using z.infer.
+
+
+**What happened:**
+
+The agent created the schema correctly the first run through, including the inferred types (string minimun 3 characters, description minimum 10 characters, etc) in a new file schemas.ts
+### Prompt 2
+
+**What I asked:**
+
+Using the Zod schema from src/lib/schemas.ts, do the following:
+
+1. Create a form component at src/components/project-form.tsx that:
+   - Is a Client Component ("use client") because it uses react-hook-form hooks
+   - Uses react-hook-form with the zodResolver from @hookform/resolvers for validation
+   - Uses shadcn/ui Field, FieldLabel, and FieldError for field layout
+   - Uses shadcn/ui Input for title, Textarea for description, and Select for status
+   - Shows inline error messages under each field when validation fails
+   - Has a "Create Project" submit button
+   - Shows a sonner toast notification on successful submission
+
+2. Create a Server Action at src/app/actions.ts that:
+   - Has "use server" at the top of the file
+   - Accepts the validated form data
+   - Validates it again with the Zod schema (server-side validation)
+   - Inserts the validated data into the Supabase "projects" table
+   - Returns a success or error response
+
+3. Create a new page at src/app/projects/new/page.tsx that renders
+   the project form within the dashboard layout.
+
+4. Add a "New Project" button to the existing projects page
+   (src/app/projects/page.tsx) that links to /projects/new.
+
+Use @workspace to match the existing project styling.
+
+
+**What happened:**
+
+> (How did the Agent handle creating multiple files? Did it connect
+> the form submission to the Server Action correctly? Did it include
+> server-side Zod validation?)
+
+The Agent reviewed 11 files and usage of Toaster and other server actions validating what it would create does not interfere.
+
+It then created code that would render the toaster globally, including the client form component, buttons, and layout updates.
+
+After it created the code, it checked for errors and then implemented the code with shadcn/dashboard styling.
+
+### Prompt 3 (if applicable)
+
+**What I asked:**
+
+> is this using server side validation?
+
+src/components/project-form.tsx and check:
+
+>Check
+What to Look For
+"use client" directive
+Top of file (needed for react-hook-form hooks)
+useForm with zodResolver
+useForm<Project>({ resolver: zodResolver(projectSchema) })
+Field / FieldLabel / FieldError
+Each input wrapped in Field layout primitives from shadcn
+Inline error messages
+FieldError displays the Zod error message for each field
+Sonner toast on success
+>Calls toast.success() or similar when the Server Action succeeds
+
+
+
+**What happened:**
+
+I ran a couple checkes, specifically after the creation of the creation of the form component and server side action, as there were several actions taking place and wanted to validate it was following the direction intended of the course chapter.
+
+Both times it returned that it successfully completed the request, and that there were no errors or additions to be made.
+
+### Reflection
+
+> How does the Schema-First approach with Zod change the way you think
+> about forms? How does it help prevent "junk data" from entering the
+> database? Compare this to how you handled form validation in
+> previous courses.
+
+I feel the Schema-First approach with Zod made validating forms much simpler than the previous ways we have been learning to create forms and field validating. 
+
+1. It is less code to write, making there less room for error in the code itself.
+
+2. Instead of having a validation code working for each input field, there is one validation code working for the entire form. 
+
+3. I think it was important for us to learn the very minute basics of entry forms and fields, including validation, to appreciate the helpful tools available at our disposal. Without the prior knowledge, we wouldn't realize how complex these tools actually are, and now we can be more efficient by spending less time creating code that is already done for us, and free!
