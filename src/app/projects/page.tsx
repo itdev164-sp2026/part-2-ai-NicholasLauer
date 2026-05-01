@@ -1,4 +1,5 @@
 import { supabase } from "@/lib/supabase";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -6,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type ProjectStatus = "active" | "completed" | "archived";
@@ -44,11 +46,16 @@ export default async function ProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <section className="space-y-2">
-        <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
-        <p className="max-w-2xl text-muted-foreground">
-          A live view of project records from Supabase.
-        </p>
+      <section className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Projects</h1>
+          <p className="max-w-2xl text-muted-foreground">
+            A live view of project records from Supabase.
+          </p>
+        </div>
+        <Link href="/projects/new" className={buttonVariants()}>
+          New Project
+        </Link>
       </section>
 
       {typedProjects.length === 0 ? (
