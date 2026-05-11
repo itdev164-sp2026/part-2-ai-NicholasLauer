@@ -1,11 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { BookOpen, FolderOpen, Home, Settings } from "lucide-react"
+import { BookOpen, FolderOpen, Home, LogOut, Settings } from "lucide-react"
+import type { User } from "@supabase/supabase-js"
+import { signOutAction } from "@/app/actions"
 
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -22,7 +25,7 @@ const navItems = [
   { title: "Settings", icon: Settings, href: "/settings", tooltip: "Settings" },
 ]
 
-export function AppSidebar() {
+export function AppSidebar({ user }: { user: User | null }) {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader>
@@ -58,6 +61,25 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      {user && (
+        <SidebarFooter>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <form action={signOutAction}>
+                <SidebarMenuButton
+                  type="submit"
+                  tooltip="Sign Out"
+                  className="w-full text-muted-foreground hover:text-foreground"
+                >
+                  <LogOut />
+                  <span>Sign Out</span>
+                </SidebarMenuButton>
+              </form>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarFooter>
+      )}
 
       <SidebarRail />
     </Sidebar>

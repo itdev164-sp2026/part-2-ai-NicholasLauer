@@ -1,4 +1,5 @@
-import { supabase } from "@/lib/supabase";
+import { unstable_noStore as noStore } from "next/cache";
+import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import {
   Card,
@@ -26,9 +27,16 @@ const statusBadgeStyles: Record<ProjectStatus, string> = {
 };
 
 export default async function ProjectsPage() {
+  noStore();
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   const { data: projects, error } = await supabase
     .from("projects")
     .select("id, title, description, status")
+    .eq("user_id", user?.id ?? "")
     .order("title", { ascending: true });
 
   if (error) {
