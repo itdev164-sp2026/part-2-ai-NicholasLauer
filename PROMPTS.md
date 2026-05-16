@@ -335,3 +335,113 @@ I felt it surprising that it only took 10 files to implement the authentication 
 How does middleware-based auth compare to checking login status inside each page component?
 
 Middleware based authentication is great because it helps ensure users are who they claim to be, and prevent access from unauthorized usage. It is nice to know that the feature is lightweight, and a small amount of code adds so much protection across the page.
+
+_____________________________________________________
+
+## Activity 6: Deployment, Webhooks, & AI-Testing
+
+### Prompt 1
+
+**What I asked:**
+
+> I have a Next.js app with Supabase Auth. Using @workspace context to
+understand the app structure, write an End-to-End (E2E) test file at
+tests/auth.spec.ts using Playwright.
+
+The tests should verify:
+
+1. LOGIN PAGE VISIBLE: Navigate to /login and confirm the login form
+   is visible (check for email input, password input, and submit button).
+
+2. REDIRECT AFTER LOGIN: After a successful login with valid credentials,
+   the user is redirected to the dashboard or projects page.
+
+3. SIDEBAR NAVIGATION: After login, verify that the sidebar navigation
+   links are visible: "Overview", "Projects", and "Settings".
+
+Requirements:
+- Use role-based locators (getByRole, getByLabel, getByText) instead of
+  CSS selectors or test IDs. This makes tests more accessible and resilient
+  to UI changes.
+- Add clear test descriptions that explain what each test verifies.
+- Handle the async nature of navigation and page loads with proper
+  Playwright waiting strategies.
+- Read test credentials from process.env.TEST_USER_EMAIL and
+  process.env.TEST_USER_PASSWORD. Do not hardcode credentials. If those
+  variables are not set, the credentialed tests should skip with a clear
+  message rather than fail.
+
+  > Added Test Email to .env.local
+  TEST_USER_EMAIL=your-test-user@example.com
+TEST_USER_PASSWORD=your-test-password
+
+> RUN TEST*** npx playwright test 
+
+> RUN TEST IN BROWSER *** npx playwright test --headed
+
+> RUN TEST W/ DETAILED REPORT *** npx playwright show-report
+
+**What happened:**
+
+> The first test ran and had two errors referencing timeout waiting for URL that was pointing towards resolving issues with the redirect path.
+
+>The second test had the same issue, but I ran the test in a visible window and could see everything working properly. 
+
+>The third test came back and passed all tests
+
+### Prompt 2
+
+**What I asked:**
+
+Create the Playwright Config
+You can ask the Agent to handle this, or create it yourself. The config file should live at playwright.config.ts in the project root:
+
+import { defineConfig } from "@playwright/test";
+import { config } from "dotenv";
+
+config({ path: ".env.local" });
+
+export default defineConfig({
+  testDir: "./tests",
+  use: {
+    baseURL: "http://localhost:3000",
+  },
+  webServer: {
+    command: "npm run dev",
+    url: "http://localhost:3000",
+    reuseExistingServer: true,
+  },
+});
+
+
+**What happened:**
+
+The assignment informed us that we could have the agent help us write this file.
+It was a simple task, but I just wanted to validate the agent would create the file with the exact code I was looking to add, without making unnecessary additions or mistakes. It worked quickly and efficiently saving me time and errors by attempting to do it myself.
+### Reflection
+
+> How does having an AI write and run tests change your confidence in
+> "hitting the deploy button"? Did the Agent catch anything you would
+> have missed? How does this compare to manually testing in the browser?
+
+>Having the AI write and run tests makes me feel much more confident in deployment of code. Not only do I feel my code is cleaner, I know it is accomplishing the results I am looking for while incorporating much more advanced features and UI experience than I am knowdlegable or skilled in. 
+
+>It makes my code feel more secure, and that if I were to make mistakes or forget to add a feature, it may take notice and correct me while also letting me know. I can learn from the AI Agent.
+
+### Course Reflection
+
+> Look back at your complete PROMPTS.md from Activity 1 to Activity 6.
+> How has your prompting strategy evolved? What do you do differently
+> now compared to your first prompt in Activity 1? What is the most
+> important thing you learned about working with AI coding tools?
+
+I really enjoyed the second half of this course because I felt the sense that AI is being taken into serious consideration in the education of computer science, the workforce, and the workflow of operations happening now.
+
+It was said once, we stand on the shoulders of giants. Knowing the basics of coding is helpful to understand what the Agent and AI is writing, but the benefits of creating advance code, advance programs, advanced UI and UX features, and more, is helpful towards our use of Web and Software development because instead of spending so much time perfecting the smallest functions, we are creating multiple advanced functions in a fraction of the time it used to take for these features.
+
+Learning how to become the architect is definitely important. In the beginning, my prompts were short, open ended, and not very detailed. Taking the time to create prompts that are similar to how you would write the process of a recipe creates significantly better and more desirable results that reflect the goal of the prompt.
+
+I enjoyed the emphasis on adding documentation to the Prompts.md file, as the AI Agent writes a lot of code, its easy to lose control over what is happening within the code. But leaving important prompts gives me the opportunity to look back at what I prompted, what the results were, and access the same logic should I need to down the line.
+
+The most important tool I learned with AI coding is honestly the Agent itself. Having been able to experience different features of the Agent, adding files to scope, running large prompts, and the goals of the prompts were all great and felt valuable. It's one thing to know they exists, which I did not, but also, the potential and capability of these features. AI is capable of large scale, immersive responses and actions with quick turnaround, and I feel much more confident in using the AI to make better applications!
+
